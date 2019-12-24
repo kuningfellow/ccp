@@ -1,9 +1,17 @@
+let g:ccpPath = expand("<sfile>:p:h") . "/"
 let g:Python = "3.6"
+
+" get KnTL path
 if has('win32')
-  let g:KnTL = "~/vimfiles/plugin/KnTL.exe"
+  let g:KnTL = g:ccpPath . "KnTL.exe"
 else
-  let g:KnTL = "~/.vim/plugin/KnTL"
+  let g:KnTL = g:ccpPath . "KnTL"
 endif
+
+" compile KnTL
+function KnTLInstall()
+  execute "!g++ -std=c++11 " . g:ccpPath . "/KnTL.cpp" . " -o " . g:KnTL
+endfunction
 
 " mode=1 : just run
 " mode=2 : run fron IN
