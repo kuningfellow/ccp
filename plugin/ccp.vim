@@ -81,17 +81,22 @@ endfunction
 " INpage toggling
 function IN()
   if shellescape(expand('%'))==#shellescape('IN')
-    execute "normal c"
+    execute "normal c"
   elseif bufwinnr('./IN') > 0
-    execute "normal ".expand(bufwinnr('./IN'))."w"
+    execute "normal ".expand(bufwinnr('./IN'))."w"
   else
     silent execute "50vs IN"
   endif
 endfunction
 
+" paste clipboard to IN file
+function PASTE()
+  execute "silent! call writefile(getreg('*',0,1),\"IN\")"
+endfunction
+
 " CPing
 nnoremap <silent> <F2> :call IN()<CR>
-nnoremap <silent> <F3> :execute "silent! normal! :call writefile(getreg('*',1,1),\"IN\")\r"<CR>
+nnoremap <silent> <F3> :call PASTE()"<CR>
 nnoremap <silent> <F4> :call CCP(2,0)<CR>
 nnoremap <silent> <S-F4> :call CCP(2,1)<CR>
 nnoremap <silent> <F5> :call CCP(1,0)<CR>
